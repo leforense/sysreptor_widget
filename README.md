@@ -118,7 +118,7 @@ sudo cp reptor-upload /usr/local/bin/
 3. Configure:
    - **Command:** `/usr/local/bin/reptor_widget`
    - **Period:** `30` (segundos entre atualizações)
-   - Marque **Run in terminal:** não
+   - **Optional:** Check "use a sigle panel row"
 4. O painel vai exibir o nome do projeto ativo em verde. Clique para abrir o seletor.
 
 ---
@@ -141,6 +141,70 @@ sudo cp reptor-upload /usr/local/bin/
 **Enviar evidência:** capture um print com ksnip → ao salvar, uma janela aparece com a lista de findings do projeto ativo → selecione um finding existente ou crie um novo → a imagem é enviada e o campo Markdown é atualizado.
 
 ---
+
+### Demonstração e configuração com imagens
+
+#### Configurando o Widget
+
+1. (opcional) Edite seu Design template e inclua um novo campo (ele não precisa ser publicado ao gerar o PDF), como o exemplo abaixo: [Caso não queira incluir um novo campo, poderá usar um já existente. o Script não apaga o conteúdo, ele acrescenta no existente]
+<img width="1717" height="746" alt="image" src="https://github.com/user-attachments/assets/7f5a0fd6-694d-4f02-b5d5-b6877f231d59" />
+
+
+2. (necessario) defina um template de finding "em branco", ou pré-preenchido, conforme exemplo, o importante aqui é a UUiD
+
+<img width="784" height="262" alt="image" src="https://github.com/user-attachments/assets/a675b2fa-eb5d-4cb6-a2bd-58b77674b6fd" />
+
+3. Após compilar e copiar os arquivos binário, configure o Widget para Kali, pelos passos abaixo:
+- Botão direito sobre o painel do Kali (xfce4-panel), Panel --> Panel Preferences
+- Selecione (Itens)
+- Selecione Generic Monitor e clique em Add e clique em Close
+
+<img width="791" height="760" alt="image" src="https://github.com/user-attachments/assets/cda9a824-636f-43c8-82da-40181527e057" />
+
+- Ainda no Panel Preferences, role até o último item, clique sobre Generic Monitor, clique em (3 traços) e adicione `/usr/local/bin/reptor_widget`, conforme exemplo:
+<img width="736" height="766" alt="image" src="https://github.com/user-attachments/assets/fb2e6c2d-828d-46ff-a92e-eafb56a74f34" />
+- Se tudo estiver correto, será exibido algo similar a isto:
+<img width="255" height="70" alt="image" src="https://github.com/user-attachments/assets/86f58728-3993-467b-9601-0379f7c8b1ac" />
+- (Opcional) mova o Generic Monitor para a posição desejada no seu painel.
+
+4. Com o widget posicionado, agora só clicar em cima dele, para trocar de projeto conforme exemplo.
+<img width="596" height="470" alt="image" src="https://github.com/user-attachments/assets/07978933-bd06-4c1d-8de8-90f737b3ab9c" />
+
+Nota: Se a conexão estiver indisponível, ficará como "Reptor not connected"
+
+#### Configurando o ksnip e seu funcionamento
+
+NOTA: (não é obrigatório o widget para o plugin funcionar, no entanto, tenha atenção redobrada durante o upload de imagens)
+
+1. Após compilar e copiar o binário para `/usr/local/bin/reptor-upload` abra seu KSNIP (Pressumindo que já está instalado)
+2. Abra seu KSNIP, e configure:
+- Options --> Settings
+- No menu a esquerda, selecione (Script Uploader) e ao lado da direita coloque o local do binário, conforme exemplo:
+<img width="820" height="673" alt="image" src="https://github.com/user-attachments/assets/fadb4614-6045-4c59-bdd9-021f8b966a14" />
+
+3. (OPCIONAL), esta interação foi realizada para evitar (cliques inuteis do Ksnip)
+- Clique em Actions --> Upload --> Defina um nome `Ex. Upload`, defina um short-cut, defina como `Global`, marque a caixa de selação `Take Capture` e marque a caixa de seleção `Upload Image`, demais itens utilize de acordo com suas preferências de trabalho.
+<img width="829" height="685" alt="image" src="https://github.com/user-attachments/assets/3303a861-1bd9-441a-ae8c-9aa759e0e656" />
+
+4. Agora, quando você pressionar `shift+print` sera capturado a região, e o ksnip vai chamar o `reptor-upload` com a seguinte interação:
+<img width="614" height="415" alt="image" src="https://github.com/user-attachments/assets/5d2910ce-c4a9-4a20-b2af-d203ed3ad48b" />
+
+5. Após selecionar o finding correspondente da evidência, via API será enviado para o campo pré-definido em cofig.cong (demostrado no ponto 1 de configuração do Widget), conforme exemplo:
+<img width="1216" height="734" alt="image" src="https://github.com/user-attachments/assets/0bf4b504-7a55-4211-a329-bfb506807033" />
+
+Notas:
+- Este programa, memoriza o ultimo finding utilizado (para envio em massa)
+- Caso voce mude de projeto, ele limpa o ultimo utilizado
+- Caso exista conteúdo no campo definido, não será sobrescrito, será **ACRESCENTADO** conforme este exemplo:
+<img width="1211" height="901" alt="image" src="https://github.com/user-attachments/assets/4f06cca8-fc45-4a1f-a193-631b2da4aa9a" />
+- Caso seja um novo FINDING, poderá usar o template (em branco, definido no passo 2 do Widget)
+
+
+--- Bugs conhecidos!
+
+Se no arquivo `~/.sysreptor/config.yaml`, este linha "project_id: bfd1ed3a-ccfd-4eea-b3ea-36ae1f4d52fa" estiver em branco, ou com um projeto inexistente, será exibido como "Reptor not connected", para corrigir, basta colocar um projeto válido, editando o arquivo ou usando `reptor project` 
+
+
 
 ---
 
