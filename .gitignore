@@ -1,0 +1,15 @@
+# Compiled binaries
+reptor_widget
+ksnip_addon_reptor/reptor-upload
+
+# Build artifacts
+*.exe
+*.out
+
+# Images / screenshots used during development
+*.png
+*.jpg
+*.jpeg
+
+# Go build cache
+/vendor/

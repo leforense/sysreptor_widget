@@ -1,0 +1,40 @@
+# Reptor Widget — Configuration File
+# Location: ~/.config/reptor-widget/config.conf
+#
+# Setup:
+#   mkdir -p ~/.config/reptor-widget
+#   cp config.conf.example ~/.config/reptor-widget/config.conf
+#   nano ~/.config/reptor-widget/config.conf
+
+# ─── Interface ────────────────────────────────────────────────────────────────
+
+# Dialog language.
+# Options: pt-br  |  en-us
+language: en-us
+
+# ─── ksnip Addon ──────────────────────────────────────────────────────────────
+
+# UUID of the Finding Template used when creating a new finding.
+#
+# How to get it:
+#   1. Open SysReptor in your browser
+#   2. Go to: Findings > Templates > choose your template
+#   3. Copy the UUID from the URL:
+#      http://reptor-local:8080/templates/7b0dd839-259a-4fb1-ad08-179ec2514a95/
+#                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#                                         this is your template_uuid
+template_uuid: 8019031d-4fb6-4991-981f-b119e905ead0
+
+# Name of the Markdown field in your SysReptor Design that stores uploaded images.
+# The field must exist in your project Design with type "Markdown".
+# Typically a hidden/internal field not rendered in the final PDF.
+api_upload_field: api_upload
+
+# ─── Authorization (optional) ─────────────────────────────────────────────────
+#
+# By default, server and token are read from ~/.sysreptor/config.yaml
+# (the file written by the sysreptor CLI after `reptor init`).
+#
+# If you do NOT use the sysreptor CLI, uncomment and fill in the two lines below:
+# server: http://reptor-local:8080
+# token: YOUR_API_TOKEN_HERE
