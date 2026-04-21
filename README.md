@@ -346,8 +346,71 @@ sudo cp reptor-upload /usr/local/bin/
 
 ---
 
+### Demonstration and configuration with images
+
+#### Configuring the Widget
+
+1. (optional) Edit your Design template and add a new field (it does not need to be published when generating the PDF), as shown below: [If you don't want to add a new field, you can use an existing one. The script does not overwrite the content — it **appends** to it]
+<img width="1717" height="746" alt="image" src="https://github.com/user-attachments/assets/7f5a0fd6-694d-4f02-b5d5-b6877f231d59" />
+
+2. (required) Define a finding template — blank or pre-filled — as shown; what matters here is the UUID
+<img width="784" height="262" alt="image" src="https://github.com/user-attachments/assets/a675b2fa-eb5d-4cb6-a2bd-58b77674b6fd" />
+
+3. After compiling and copying the binary files, configure the Widget for Kali as follows:
+- Right-click the Kali panel (xfce4-panel), Panel → Panel Preferences
+- Select (Items)
+- Select Generic Monitor, click Add, then click Close
+
+<img width="791" height="760" alt="image" src="https://github.com/user-attachments/assets/cda9a824-636f-43c8-82da-40181527e057" />
+
+- Still in Panel Preferences, scroll to the last item, click Generic Monitor, click (3 lines) and add `/usr/local/bin/reptor_widget`, as shown:
+<img width="736" height="766" alt="image" src="https://github.com/user-attachments/assets/fb2e6c2d-828d-46ff-a92e-eafb56a74f34" />
+- If everything is correct, something similar to this will be displayed:
+<img width="255" height="70" alt="image" src="https://github.com/user-attachments/assets/86f58728-3993-467b-9601-0379f7c8b1ac" />
+- (Optional) Move the Generic Monitor to the desired position on your panel.
+
+4. With the widget in place, just click on it to switch projects as shown.
+<img width="596" height="470" alt="image" src="https://github.com/user-attachments/assets/07978933-bd06-4c1d-8de8-90f737b3ab9c" />
+
+Note: If the connection is unavailable, it will display "Reptor not connected"
+
+#### Configuring ksnip and its operation
+
+NOTE: (the widget is not required for the plugin to work, however, pay close attention to which project is active when uploading images)
+
+1. After compiling and copying the binary to `/usr/local/bin/reptor-upload`, open KSNIP (assuming it is already installed)
+2. Open KSNIP and configure:
+- Options → Settings
+- In the left menu, select (Script Uploader) and on the right side enter the binary path, as shown:
+<img width="820" height="673" alt="image" src="https://github.com/user-attachments/assets/fadb4614-6045-4c59-bdd9-021f8b966a14" />
+
+3. (OPTIONAL) This interaction was created to avoid unnecessary ksnip clicks:
+- Click Actions → Upload → Set a name (e.g. `Upload`), define a shortcut, set as `Global`, check `Take Capture` and check `Upload Image`; use the remaining options according to your work preferences.
+<img width="829" height="685" alt="image" src="https://github.com/user-attachments/assets/3303a861-1bd9-441a-ae8c-9aa759e0e656" />
+
+4. Now, when you press `shift+print`, the region will be captured and ksnip will call `reptor-upload` with the following interaction:
+<img width="614" height="415" alt="image" src="https://github.com/user-attachments/assets/5d2910ce-c4a9-4a20-b2af-d203ed3ad48b" />
+
+5. After selecting the corresponding finding for the evidence, it will be sent via API to the pre-defined field in `config.conf` (shown in Widget configuration step 1), as shown:
+<img width="1216" height="734" alt="image" src="https://github.com/user-attachments/assets/0bf4b504-7a55-4211-a329-bfb506807033" />
+
+Notes:
+- This program remembers the last finding used (for bulk uploads)
+- If you switch projects, it clears the last used finding
+- If the defined field already has content, it will NOT be overwritten — it will be **APPENDED**, as in this example:
+<img width="1211" height="901" alt="image" src="https://github.com/user-attachments/assets/4f06cca8-fc45-4a1f-a193-631b2da4aa9a" />
+- If it is a new FINDING, you can use the blank template defined in Widget step 2
+
+---
+
+### Known Bugs
+
+If in `~/.sysreptor/config.yaml` the line `project_id:` is blank or contains a non-existent project UUID, the widget will display "Reptor not connected". To fix this, set a valid project by editing the file directly or running `reptor project`.
+
+---
+
 ### Author
 
-Developed by **Luiz Le Fort** — aka LeFoFo  
+Developed by **Luiz Le Fort** — aka LeFoFo / leforense  
 Security researcher & pentester  
 Built for personal use during red team engagements — shared with the community.
